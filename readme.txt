@@ -37,18 +37,8 @@ Features of GNU Social Followers Widget
 
 Check the documentation folder. or go here - http://sparxseo.com/documentation/advanced-twitter-followers-widget.html
 
-== Frequently Asked Questions ==
- Contact us for any kind of support - admin@sparxseo.com
-
-== Screenshots ==
-
-1. Frontend Screenshot
-2. Backend Screenshot
 
 == Changelog ==
 
 = 1.0 =
-Stable version release - 12th March 2014
-
-= 1.1 =
-bug fixes
+Stable version release - 21th March 2015
