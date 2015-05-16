@@ -311,11 +311,11 @@ class GNUSocialFollowersWidget extends WP_Widget{
 	$data .= "<div class='floatelement'>
             <div class='thumb-img'><a href='https://$server/$userScreenName' target='_blank'><img src='$userProfileImage'></a></div>
 		<div class='right-text'><p class='title'><a href='//$server/$userScreenName' target='_blank'>$userNameInfo</a></p>
-                    <a class='follow-btn' href='https://$server/$userScreenName' target='_blank'><span></span> $followButtonText</a></div>
+                    <a class='subscribe-btn' href='https://$server/$userScreenName' target='_blank'><span></span> $followButtonText</a></div>
 			<div class='clr'></div>
 		</div>
 			<div class='imagelisting'>
-                <p>$followers peoples are following <strong><a href='//$server/$userScreenName' target='_blank'>$userScreenName</a></strong> @$server</p>
+                <p>$followers people are following <strong><a href='//$server/$userScreenName' target='_blank'>$userScreenName</a></strong> @$server</p>
     <ul>";
 foreach($string as $items){
         $length = count($items);
