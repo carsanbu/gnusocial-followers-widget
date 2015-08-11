@@ -308,14 +308,15 @@ class GNUSocialFollowersWidget extends WP_Widget{
         $userScreenName = $stringUserInfo['screen_name'];
         $userProfileImage = $stringUserInfo['profile_image_url'];
         $userNameInfo = $stringUserInfo['name'];
+        $userUrl = $stringUserInfo['statusnet_profile_url'];
 	$data .= "<div class='floatelement'>
-            <div class='thumb-img'><a href='https://$server/$userScreenName' target='_blank'><img src='$userProfileImage'></a></div>
-		<div class='right-text'><p class='title'><a href='//$server/$userScreenName' target='_blank'>$userNameInfo</a></p>
-                    <a class='subscribe-btn' href='https://$server/$userScreenName' target='_blank'><span></span> $followButtonText</a></div>
+            <div class='thumb-img'><a href='$userUrl' target='_blank'><img src='$userProfileImage'></a></div>
+		<div class='right-text'><p class='title'><a href='$userUrl' target='_blank'>$userNameInfo</a></p>
+                    <a class='subscribe-btn' href='$userUrl' target='_blank'><span></span> $followButtonText</a></div>
 			<div class='clr'></div>
 		</div>
 			<div class='imagelisting'>
-                <p>$followers people are following <strong><a href='//$server/$userScreenName' target='_blank'>$userScreenName</a></strong> @$server</p>
+                <p>$followers people are following <strong><a href='$userUrl' target='_blank'>$userScreenName</a></strong> @$server</p>
     <ul>";
 foreach($string as $items){
         $length = count($items);
@@ -325,10 +326,10 @@ foreach($string as $items){
                 $t = $connections+1;
         }
         $followImg = $items['profile_image_url'];
-	$followURL = $items['screen_name'];
+	$followURL = $items['statusnet_profile_url'];
 	$followTitle = $items['name'];
 	//$this->render_ToDebugBar('main','pr','Post Vars While Saving',$followImg);
-	$data .= "<li style='margin: 2px 2px 0 0;'><a href='https://$server/$followURL' target='_blank'><img src='$followImg' title='$followTitle' style='border: $imageBorder";
+	$data .= "<li style='margin: 2px 2px 0 0;'><a href='$followURL' target='_blank'><img src='$followImg' title='$followTitle' style='border: $imageBorder";
         $data .= "px  solid $imageBorderColor; border-radius: $imageBorderRadius";
         $data .= "px;margin: $imagePadding";
         $data .= "px;'></a></li>";
