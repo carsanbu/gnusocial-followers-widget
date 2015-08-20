@@ -20,7 +20,7 @@ class GNUSocialFollowersWidget extends WP_Widget{
         );
         parent::__construct('GNUSocialFollowersWidget','',$params);
     }
-        
+
     /**
     * Register and enqueue style sheet.
     */
@@ -275,8 +275,8 @@ class GNUSocialFollowersWidget extends WP_Widget{
         'consumer_key' => trim($consumerKey),
         'consumer_secret' => trim($consumerSecret)
         );
-        $urlUserInformation = "https://$server/api/users/show.json";
-        $url = "https://$server/api/statuses/followers.json";
+        $urlUserInformation = "http://$server/api/users/show.json";
+        $url = "http://$server/api/statuses/followers.json";
         $requestMethod = "GET";
         $getFollowers = "?cursor=-1&screen_name=$tUsername&skip_status=true&include_user_entities=false";
         $twitterAPI = new TwitterAPIExchange($settings);
