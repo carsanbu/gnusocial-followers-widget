@@ -270,22 +270,22 @@ class GNUSocialFollowersWidget extends WP_Widget{
         $dir = plugin_dir_path( __FILE__ )."TwitterAPIExchange.php";
         require_once($dir);
         $settings = array(
-        'oauth_access_token' => ""/*trim($accessToken)*/,
-        'oauth_access_token_secret' => ""/*trim($accessTokenSecret)*/,
-        'consumer_key' => trim($consumerKey),
-        'consumer_secret' => trim($consumerSecret)
+          'oauth_access_token' => ""/*trim($accessToken)*/,
+          'oauth_access_token_secret' => ""/*trim($accessTokenSecret)*/,
+          'consumer_key' => trim($consumerKey),
+          'consumer_secret' => trim($consumerSecret)
         );
-        $urlUserInformation = "http://$server/api/users/show.json";
-        $url = "http://$server/api/statuses/followers.json";
+        $urlUserInformation = "$server/api/users/show.json";
+        $url = "$server/api/statuses/followers.json";
         $requestMethod = "GET";
         $getFollowers = "?cursor=-1&screen_name=$tUsername&skip_status=true&include_user_entities=false";
         $twitterAPI = new TwitterAPIExchange($settings);
         $stringUserInfo = json_decode($twitterAPI->setGetfield($getFollowers)
-        ->buildOauth($urlUserInformation, $requestMethod)
-        ->performRequest(),$assoc = TRUE);
+          ->buildOauth($urlUserInformation, $requestMethod)
+          ->performRequest(),$assoc = TRUE);
         $string = json_decode($twitterAPI->setGetfield($getFollowers)
-        ->buildOauth($url, $requestMethod)
-        ->performRequest(),$assoc = TRUE);
+          ->buildOauth($url, $requestMethod)
+          ->performRequest(),$assoc = TRUE);
         $followers = $stringUserInfo['followers_count'];
         $data = "";
 
@@ -309,6 +309,7 @@ class GNUSocialFollowersWidget extends WP_Widget{
         $userProfileImage = $stringUserInfo['profile_image_url'];
         $userNameInfo = $stringUserInfo['name'];
         $userUrl = $stringUserInfo['statusnet_profile_url'];
+        $host = (parse_url($server)['host']);
 	$data .= "<div class='floatelement'>
             <div class='thumb-img'><a href='$userUrl' target='_blank'><img src='$userProfileImage'></a></div>
 		<div class='right-text'><p class='title'><a href='$userUrl' target='_blank'>$userNameInfo</a></p>
@@ -316,24 +317,27 @@ class GNUSocialFollowersWidget extends WP_Widget{
 			<div class='clr'></div>
 		</div>
 			<div class='imagelisting'>
-                <p>$followers people are following <strong><a href='$userUrl' target='_blank'>$userScreenName</a></strong> @$server</p>
+                <p>$followers people are following <strong><a href='$userUrl' target='_blank'>$userScreenName</a></strong> @$host</p>
     <ul>";
-foreach($string as $items){
-        $length = count($items);
-        if($length<$connections){
-                $t = $length;
-        }else{
-                $t = $connections+1;
-        }
-        $followImg = $items['profile_image_url'];
-	$followURL = $items['statusnet_profile_url'];
-	$followTitle = $items['name'];
-	//$this->render_ToDebugBar('main','pr','Post Vars While Saving',$followImg);
-	$data .= "<li style='margin: 2px 2px 0 0;'><a href='$followURL' target='_blank'><img src='$followImg' title='$followTitle' style='border: $imageBorder";
-        $data .= "px  solid $imageBorderColor; border-radius: $imageBorderRadius";
-        $data .= "px;margin: $imagePadding";
-        $data .= "px;'></a></li>";
-}
+    if($string != "")
+    {
+      foreach($string as $items){
+              $length = count($items);
+              if($length<$connections){
+                      $t = $length;
+              }else{
+                      $t = $connections+1;
+              }
+              $followImg = $items['profile_image_url'];
+      	$followURL = $items['statusnet_profile_url'];
+      	$followTitle = $items['name'];
+
+      	$data .= "<li style='margin: 2px 2px 0 0;'><a href='$followURL' target='_blank'><img src='$followImg' title='$followTitle' style='border: $imageBorder";
+              $data .= "px  solid $imageBorderColor; border-radius: $imageBorderRadius";
+              $data .= "px;margin: $imagePadding";
+              $data .= "px;'></a></li>";
+      }
+    }
 $data .= "<div class='clr'></div>
     </ul>";
 if($footer=="true"){
@@ -367,4 +371,14 @@ add_action('admin_print_styles-widgets.php', 'sparx_sample_load_color_picker_sty
 add_action('widgets_init','register_sparx_GNUSocialFollowersWidget');
 function register_sparx_GNUSocialFollowersWidget(){
     register_widget('GNUSocialFollowersWidget');
+}
+
+function debug_to_console( $data ) {
+
+    if ( is_array( $data ) )
+        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+    else
+        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+
+    echo $output;
 }
