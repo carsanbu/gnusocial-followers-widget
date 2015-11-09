@@ -372,13 +372,3 @@ add_action('widgets_init','register_sparx_GNUSocialFollowersWidget');
 function register_sparx_GNUSocialFollowersWidget(){
     register_widget('GNUSocialFollowersWidget');
 }
-
-function debug_to_console( $data ) {
-
-    if ( is_array( $data ) )
-        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
-    else
-        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
-
-    echo $output;
-}
